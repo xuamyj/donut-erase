@@ -27,24 +27,35 @@ document.querySelector("textarea").addEventListener('keydown',function(e) {
     }
 },false);
 
+// source: http://stackoverflow.com/questions/18679576/counting-words-in-string
+function countWords(s){
+   s = s.replace(/\t/gi, " ");
+   s = s.replace(/(^\s*)|(\s*$)/gi,""); //exclude  start and end white-space
+   s = s.replace(/[ ]{2,}/gi," "); //2 or more space to 1
+   s = s.replace(/\n /,"\n"); // exclude newline with a start spacing
+   return s.split(' ').length;
+}
+
 if(!localStorage.getItem('everythingSoFar')) {
   localStorage.setItem('everythingSoFar', ' ');
 }
 
 function commit() {
-  msg.innerHTML = "commit";
+  msg.innerHTML = 'yay :)';
   var everythingSoFar = localStorage.getItem('everythingSoFar') + ' ' + textBox.value
   localStorage.setItem('everythingSoFar', everythingSoFar);
   textBox.value = '';
-  console.log(everythingSoFar)
+  wordCount.innerHTML = 'word count: ' + countWords(everythingSoFar);
   return false;
 }
 
 function finish() {
   msg.innerHTML = localStorage.getItem('everythingSoFar');
-  localStorage.removeItem('everythingSoFar');
+  localStorage.setItem('everythingSoFar', ' ');
+  wordCount.innerHTML = 'word count: 0';
   return false;
 }
 
 commitButton.onclick = commit; // "commit"
 finishButton.onclick = finish; // "finish"
+
