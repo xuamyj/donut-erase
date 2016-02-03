@@ -1,6 +1,7 @@
 var wordCount = document.getElementById('wordcount');
 var msg = document.getElementById('msg');
 var textBox = document.getElementById('words');
+var lastTextBox = document.getElementById('last-typed');
 var commitButton = document.getElementById('commit');
 var finishButton = document.getElementById('finish');
 
@@ -49,6 +50,7 @@ function commit() {
   msg.innerHTML = 'yay :)';
   var everythingSoFar = localStorage.getItem('everythingSoFar') + ' ' + textBox.value
   localStorage.setItem('everythingSoFar', everythingSoFar);
+  lastTextBox.innerHTML = textBox.value;
   textBox.value = '';
   wordCount.innerHTML = 'word count: ' + countWords(everythingSoFar);
   return false;
